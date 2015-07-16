@@ -1,0 +1,33 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/vote_panel.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/vote_panel.js" />
+	</scripts>
+	<Panel><Panel class="main" id="main_panel"> <!-- We put two panels so that we can assign one ID to the main one -->
+		<Panel class="inner">
+			<Panel class="title">
+				<Label id="vote_title" text="Vote for the VIP" />
+			</Panel>
+			<Panel class="content">
+				<Button id="vote1" class="vote_button" onactivate="vote(1)">
+					<Label id="vote_label1" text="No Hero" />
+				</Button>
+				<Button id="vote2" class="vote_button" onactivate="vote(2)" style="margin-top: 35px;">
+					<Label id="vote_label2" text="No Hero" />
+				</Button>
+				<Button id="vote3" class="vote_button" onactivate="vote(3)" style="margin-top: 70px;">
+					<Label id="vote_label3" text="No Hero" />
+				</Button>
+				<Button id="vote4" class="vote_button" onactivate="vote(4)" style="margin-top: 105px;">
+					<Label id="vote_label4" text="No Hero" />
+				</Button>
+				<Button id="vote5" class="vote_button" onactivate="vote(5)" style="margin-top: 140px;">
+					<Label id="vote_label5" text="No Hero" />
+				</Button>
+				<Label id="voted" class="hidden" text="You have voted!" />
+			</Panel>
+		</Panel>
+	</Panel></Panel>
+</root>

@@ -1,0 +1,2 @@
+CREDIT
+https://github.com/MNoya/Warchasers/blob/master/content/dota_addons/warchasers/panorama/layout/custom_game/warchasers_diff.xml
