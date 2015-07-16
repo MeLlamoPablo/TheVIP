@@ -93,12 +93,21 @@ function GameMode:OnHeroInGame(hero)
   local playerID = hero:GetPlayerID()
   local player = PlayerResource:GetPlayer(playerID)
   local teamNumber = player:GetTeam()
-
+  local event_data
   -- Send the spawned hero's name and the place (ID) where it should be to the spawned hero's team's players
-  local event_data = {
-    id = #radiantPlayers+1,
-    hero = dotaHeroes[hero:GetUnitName()]
-  }
+  if(teamNumber == DOTA_TEAM_GOODGUYS) then
+    event_data = {
+      id = #radiantPlayers+1,
+      hero = dotaHeroes[hero:GetUnitName()]
+    }
+  else
+    event_data = {
+      id = #direPlayers+1,
+      hero = dotaHeroes[hero:GetUnitName()]
+    }
+  end
+  DebugPrint("AyyLmao: " .. event_data['id'] .. " - " .. event_data['hero'])
+
   CustomGameEventManager:Send_ServerToTeam(teamNumber, "hero_spawned", event_data)
 
   -- Store the spawned hero's owner's id along with the ID sent to the client for later to know who's being voted.

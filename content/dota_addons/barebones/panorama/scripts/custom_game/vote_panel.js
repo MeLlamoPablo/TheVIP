@@ -18,6 +18,6 @@ function OnHideHud(){
 
 GameEvents.Subscribe("hero_spawned", OnHeroSpawned);
 function OnHeroSpawned(event){
-	$("#vote_label" + event.id).text = event.hero;
 	$.Msg("OnHeroSpawned called: ID is " + event.id + " and hero is " + event.hero)
+	$("#vote_label" + event.id).text = event.hero;
 }
