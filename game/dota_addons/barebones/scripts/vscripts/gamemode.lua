@@ -84,6 +84,8 @@ end
 ]]
 radiantPlayers = {}
 direPlayers = {}
+radiantPlayersHeroNames = {}
+direPlayersHeroNames = {}
 radiantPlayersVotes = {}
 direPlayersVotes = {}
 function GameMode:OnHeroInGame(hero)
@@ -93,29 +95,22 @@ function GameMode:OnHeroInGame(hero)
   local playerID = hero:GetPlayerID()
   local player = PlayerResource:GetPlayer(playerID)
   local teamNumber = player:GetTeam()
-  local event_data
-  -- Send the spawned hero's name and the place (ID) where it should be to the spawned hero's team's players
-  if(teamNumber == DOTA_TEAM_GOODGUYS) then
-    event_data = {
-      id = #radiantPlayers+1,
-      hero = dotaHeroes[hero:GetUnitName()]
-    }
-  else
-    event_data = {
-      id = #direPlayers+1,
-      hero = dotaHeroes[hero:GetUnitName()]
-    }
-  end
 
-  CustomGameEventManager:Send_ServerToTeam(teamNumber, "hero_spawned", event_data)
-
-  -- Store the spawned hero's owner's id along with the ID sent to the client for later to know who's being voted.
+  -- radiant/direPlayers = Stores the spawned hero's owner's id (value) along with the ID to be sent to the client (key) for later to know who's being voted.
+  -- radiant/direPlayersVotes = Stores the number of votes (value) along with the ID to be sent to the client (key) for later to decide who's the VIP
+  -- radiant/direPlayersHeroNames = Stores the "beautiful" hero name (value) along with the ID to be sent to the client (key) for the client to put these names on the vote buttons.
   if(teamNumber == DOTA_TEAM_GOODGUYS) then
     radiantPlayers[#radiantPlayers+1] = playerID
-    radiantPlayersVotes[#radiantPlayersVotes+1] = 0
+    radiantPlayersVotes[#radiantPlayers] = 0
+    radiantPlayersHeroNames[#radiantPlayers] = dotaHeroes[hero:GetUnitName()]
+
+    CustomGameEventManager:Send_ServerToTeam(teamNumber, "hero_spawned", radiantPlayersHeroNames)
   else if(teamNumber == DOTA_TEAM_BADGUYS) then
     direPlayers[#direPlayers+1] = playerID
-    direPlayersVotes[#direPlayersVotes+1] = 0
+    direPlayersVotes[#direPlayers] = 0
+    direPlayersHeroNames[#direPlayers] = dotaHeroes[hero:GetUnitName()]
+
+    CustomGameEventManager:Send_ServerToTeam(teamNumber, "hero_spawned", direPlayersHeroNames)
   end
   end -- I messed up something because two ends are needed here. If one is removed, an error will be caused :S
 

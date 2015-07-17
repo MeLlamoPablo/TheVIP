@@ -44,8 +44,8 @@ end
 
 -- An NPC has spawned somewhere in game.  This includes heroes
 function GameMode:OnNPCSpawned(keys)
-  DebugPrint("[BAREBONES] NPC Spawned")
-  DebugPrintTable(keys)
+  --DebugPrint("[BAREBONES] NPC Spawned")
+  --DebugPrintTable(keys)
 
   -- This internal handling is used to set up main barebones functions
   GameMode:_OnNPCSpawned(keys)
@@ -230,8 +230,8 @@ end
 
 -- An entity died
 function GameMode:OnEntityKilled( keys )
-  DebugPrint( '[BAREBONES] OnEntityKilled Called' )
-  DebugPrintTable( keys )
+  --DebugPrint( '[BAREBONES] OnEntityKilled Called' )
+  --DebugPrintTable( keys )
 
   GameMode:_OnEntityKilled( keys )
   
@@ -330,8 +330,8 @@ end
 
 -- This function is called whenever an NPC reaches its goal position/target
 function GameMode:OnNPCGoalReached(keys)
-  DebugPrint('[BAREBONES] OnNPCGoalReached')
-  DebugPrintTable(keys)
+  --DebugPrint('[BAREBONES] OnNPCGoalReached')
+  --DebugPrintTable(keys)
 
   local goalEntity = EntIndexToHScript(keys.goal_entindex)
   local nextGoalEntity = EntIndexToHScript(keys.next_goal_entindex)

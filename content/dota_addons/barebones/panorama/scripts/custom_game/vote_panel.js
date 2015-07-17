@@ -1,3 +1,7 @@
+"use strict";
+
+var heroes = new Array("Nothing", "No Hero", "No Hero", "No Hero", "No Hero", "No Hero");
+
 function vote(number){
 	for(var i = 1; i < 6; i++){
 		$('#vote' + i).AddClass('hidden');
@@ -10,14 +14,16 @@ function vote(number){
 }
 
 // GAME EVENTS
-GameEvents.Subscribe("hide_hud", OnHideHud);
 function OnHideHud(){
 	$('#main_panel').AddClass('hidden');
 	$.Msg("OnHideHud called");
 }
+GameEvents.Subscribe("hide_hud", OnHideHud);
 
-GameEvents.Subscribe("hero_spawned", OnHeroSpawned);
 function OnHeroSpawned(event){
-	$.Msg("OnHeroSpawned called: ID is " + event.id + " and hero is " + event.hero)
-	$("#vote_label" + event.id).text = event.hero;
+	$.Msg("OnHeroSpawned called. Data recieved: " + JSON.stringify(event));
+	for(var i = 1; i < 6; i++){
+		$("#vote_label" + i).text = event[i];
+	};
 }
+GameEvents.Subscribe("hero_spawned", OnHeroSpawned);
