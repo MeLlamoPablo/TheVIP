@@ -2,6 +2,7 @@
 
 //GAME EVENTS
 function OnShowVipLabels(event){
+	$.Msg("OnShowVipLabels called. Data recieved: " + JSON.stringify(event));
 	for (var i = 1; i < 6; i++) {
 		if(i != event.radiant){
 			$('#vip_radiant_label' + i).AddClass('hidden');

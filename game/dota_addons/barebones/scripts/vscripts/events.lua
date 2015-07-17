@@ -13,7 +13,7 @@ function GameMode:_OnEntityKilled( keys )
   end
 
   -- Evaluate if the killed unit is a hero, and then if that hero is the VIP
-  if killedUnit:IsRealHero() and (killedUnit:GetPlayerID() == radiantVIP:GetPlayerID() or killedUnit:GetPlayerID() == direVIP:GetPlayerID()) then 
+  if killedUnit:IsRealHero() and radiantVIP ~= nil and (killedUnit:GetPlayerID() == radiantVIP:GetPlayerID() or killedUnit:GetPlayerID() == direVIP:GetPlayerID()) then 
     Notifications:TopToAll({text="The VIP has been killed", duration=7.5})
     GameRules:SetSafeToLeave( true )
     GameRules:SetGameWinner( killerEntity:GetTeam() )

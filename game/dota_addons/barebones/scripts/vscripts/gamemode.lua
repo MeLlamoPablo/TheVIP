@@ -125,10 +125,13 @@ function GameMode:OnPlayerVoted(event)
   local votingPlayerTeam = votingPlayer:GetTeam()
 
   if(votingPlayerTeam == DOTA_TEAM_GOODGUYS) then
-    radiantPlayersVotes[event.n] = radiantPlayersVotes[event.n] + 1
-    DebugPrint("Player ID" .. radiantPlayers[event.n] .. " has now " .. radiantPlayersVotes[event.n] .. " votes. event.n = " .. event.n)
+    if radiantPlayers[event.n] ~= nil then
+      radiantPlayersVotes[event.n] = radiantPlayersVotes[event.n] + 1
+    end
   else if(votingPlayerTeam == DOTA_TEAM_BADGUYS) then
-    direPlayersVotes[event.n] = direPlayersVotes[event.n] + 1
+    if direPlayers[event.n] ~= nil then
+      direPlayersVotes[event.n] = direPlayersVotes[event.n] + 1
+    end
   end
   end
 end
@@ -155,7 +158,6 @@ function GameMode:OnGameInProgress()
   end
 
   radiantVIP = PlayerResource:GetPlayer(radiantPlayers[maxKey])
-  local radiantVIPKey = maxKey
 
   --Choose the dire VIP
   max = direPlayersVotes[1]
@@ -171,10 +173,8 @@ function GameMode:OnGameInProgress()
   local direVIPKey
   if max == nil then
     direVIP = radiantVIP -- for testing purposes, where only one player in radiant loads
-    direVIPKey = radiantVIPKey
   else
     direVIP = PlayerResource:GetPlayer(direPlayers[maxKey])
-    direVIPKey = maxKey
   end  
 
   -- Notify the players who the VIPs are
@@ -186,10 +186,26 @@ function GameMode:OnGameInProgress()
   local event_data = nil
   CustomGameEventManager:Send_ServerToAllClients("hide_hud", event_data)
 
-  -- Show "VIP" labels
+  -- Send VIP data to the clients to show VIP labels
+  -- In order to do this, we must not send the maxKey values (spawn order), because the Dota HUD doesn't display players in spawn order, but in connect order. In order to do this, we use PlayerResource:GetNthPlayerIDOnTeam(teamNumber, Nth)
+  -- This function isn't too well documented (yet, hopefully). You give it a team number and a position number, and it returns the player ID of the player in that position, in that team. For instance, if the HUD shows Tinker first, then Furion on the radiant side:
+  -- PlayerResource:GetNthPlayerIDOnTeam(DOTA_TEAM_GOODGUYS, 2) will return the Player ID of the player who controls Furion
+  local radiantVIPPosition
+  local direVIPPosition
+  for i=1, #radiantPlayers do
+    if PlayerResource:GetNthPlayerIDOnTeam(DOTA_TEAM_GOODGUYS, i) == radiantVIP:GetPlayerID() then
+      radiantVIPPosition = i
+    end
+  end
+  for i=1, #direPlayers do
+    if PlayerResource:GetNthPlayerIDOnTeam(DOTA_TEAM_BADGUYS, i) == direVIP:GetPlayerID() then
+      direVIPPosition = i
+    end
+  end
+
   event_data = {
-    radiant = radiantVIPKey,
-    dire = direVIPKey
+    radiant = radiantVIPPosition,
+    dire = direVIPPosition
   }
   CustomGameEventManager:Send_ServerToAllClients("show_vip_labels", event_data)
 
