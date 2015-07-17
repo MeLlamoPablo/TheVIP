@@ -1,0 +1,44 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/vip_indicators.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/vip_indicators.js" />
+	</scripts>
+	<Panel><Panel class="main" id="main_panel"> <!-- We put two panels so that we can assign one ID to the main one -->
+		<Panel id="radiant">
+			<Panel id="vip_radiant1" class="vip_text vip_radiant" style="margin-left: 15px;">
+				<Label id="vip_radiant_label1" text="VIP" />
+			</Panel>
+			<Panel id="vip_radiant2" class="vip_text vip_radiant" style="margin-left: 79px;">
+				<Label id="vip_radiant_label2" text="VIP" />
+			</Panel>
+			<Panel id="vip_radiant3" class="vip_text vip_radiant" style="margin-left: 143px;">
+				<Label id="vip_radiant_label3" text="VIP" />
+			</Panel>
+			<Panel id="vip_radiant4" class="vip_text vip_radiant" style="margin-left: 213px;">
+				<Label id="vip_radiant_label4" text="VIP" />
+			</Panel>
+			<Panel id="vip_radiant5" class="vip_text vip_radiant" style="margin-left: 276px;">
+				<Label id="vip_radiant_label5" text="VIP" />
+			</Panel>
+		</Panel>
+		<Panel id="dire">
+			<Panel id="vip_dire1" class="vip_text vip_dire" style="margin-left: 15px;">
+				<Label id="vip_dire_label1" text="VIP" />
+			</Panel>
+			<Panel id="vip_dire2" class="vip_text vip_dire" style="margin-left: 79px;">
+				<Label id="vip_dire_label2" text="VIP" />
+			</Panel>
+			<Panel id="vip_dire3" class="vip_text vip_dire" style="margin-left: 143px;">
+				<Label id="vip_dire_label3" text="VIP" />
+			</Panel>
+			<Panel id="vip_dire4" class="vip_text vip_dire" style="margin-left: 213px;">
+				<Label id="vip_dire_label4" text="VIP" />
+			</Panel>
+			<Panel id="vip_dire5" class="vip_text vip_dire" style="margin-left: 276px;">
+				<Label id="vip_dire_label5" text="VIP" />
+			</Panel>
+		</Panel>
+	</Panel></Panel>
+</root>

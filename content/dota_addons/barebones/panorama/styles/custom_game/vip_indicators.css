@@ -1,0 +1,31 @@
+.hidden {
+	visibility: collapse;
+	background-color: none;
+}
+
+#main_panel {
+	/*border: 1px solid red;*/
+	width: 867px;
+	margin-left: 527px;
+	margin-top: 42px;
+}
+
+#radiant {
+	/*border: 1px solid blue;*/
+}
+
+#dire {
+	margin-left: 535px;
+}
+
+.vip_text {
+	font-size: 15px;
+	font-family: Goudy Trajan Medium;
+	background-color: rgb(37, 40, 44);
+	border: 1px solid black;
+	padding-left: 7px;
+}
+
+.vip_radiant {
+	color: #28FF00;
+}

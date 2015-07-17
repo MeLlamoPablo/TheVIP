@@ -106,7 +106,6 @@ function GameMode:OnHeroInGame(hero)
       hero = dotaHeroes[hero:GetUnitName()]
     }
   end
-  DebugPrint("AyyLmao: " .. event_data['id'] .. " - " .. event_data['hero'])
 
   CustomGameEventManager:Send_ServerToTeam(teamNumber, "hero_spawned", event_data)
 
@@ -161,6 +160,7 @@ function GameMode:OnGameInProgress()
   end
 
   radiantVIP = PlayerResource:GetPlayer(radiantPlayers[maxKey])
+  local radiantVIPKey = maxKey
 
   --Choose the dire VIP
   max = direPlayersVotes[1]
@@ -173,20 +173,30 @@ function GameMode:OnGameInProgress()
     end
   end
 
+  local direVIPKey
   if max == nil then
     direVIP = radiantVIP -- for testing purposes, where only one player in radiant loads
+    direVIPKey = radiantVIPKey
   else
     direVIP = PlayerResource:GetPlayer(direPlayers[maxKey])
+    direVIPKey = maxKey
   end  
 
   -- Notify the players who the VIPs are
-  Notifications:TopToAll({text="The Radiant VIP is " .. dotaHeroes[radiantVIP:GetAssignedHero():GetUnitName()], duration=15, style={color="green"}})
-  Notifications:TopToAll({text="The Dire VIP is "  .. dotaHeroes[direVIP:GetAssignedHero():GetUnitName()], duration=15, style={color="red"}})
-  Notifications:TopToAll({text="GLHF!", duration=15})
+  Notifications:TopToAll({text="The Radiant VIP is " .. dotaHeroes[radiantVIP:GetAssignedHero():GetUnitName()], duration=10, style={color="green"}})
+  Notifications:TopToAll({text="The Dire VIP is "  .. dotaHeroes[direVIP:GetAssignedHero():GetUnitName()], duration=10, style={color="red"}})
+  Notifications:TopToAll({text="GLHF!", duration=10})
 
   -- Hide the voting HUD from every player
   local event_data = nil
   CustomGameEventManager:Send_ServerToAllClients("hide_hud", event_data)
+
+  -- Show "VIP" labels
+  event_data = {
+    radiant = radiantVIPKey,
+    dire = direVIPKey
+  }
+  CustomGameEventManager:Send_ServerToAllClients("show_vip_labels", event_data)
 
   Timers:CreateTimer(30, -- Start this timer 30 game-time seconds later
     function()
