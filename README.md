@@ -1,6 +1,6 @@
 # The VIP
 
-The VIP is a Dota 2 (currently unreleased) gamemode. The gameplay is simple: each team has one VIP. If your VIP dies, you lose.
+The VIP is a Dota 2 gamemode. The gameplay is simple: each team has one VIP. If your VIP dies, you lose. [Steam Workshop link](https://github.com/MeLlamoPablo/TheVIP).
 
 The VIP uses [BMD's barebones](https://github.com/bmddota/barebones).
 
